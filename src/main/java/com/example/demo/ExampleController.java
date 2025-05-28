@@ -18,6 +18,7 @@ public class ExampleController {
     // PATCH > update een enkel veld, en laat de rest ongemoeid
 
     @GetMapping
+    @Loggable
     public String getHello() {
         return "Hiiii";
     }
