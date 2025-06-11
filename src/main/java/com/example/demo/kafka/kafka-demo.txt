@@ -1,0 +1,66 @@
+brew install kafka (macos)
+download hier voor windows: https://dlcdn.apache.org/kafka/3.9.1/kafka-3.9.1-src.tgz
+make sure to be in the kafka training folder
+
+
+
+vim zookeeper.properties (mag ook handmatig dit aanmaken en onderstaande inhoud inzetten)
+
+```
+tickTime=2000
+dataDir=/Users/maaikevanputten/kafka/data
+clientPort=2181
+initLimit=5
+syncLimit=2
+
+```
+
+vim server.properties (mag ook handmatig dit aanmaken en onderstaande inhoud inzetten)
+
+```
+# Basic Kafka Broker Configuration
+
+# Unique identifier for the broker
+broker.id=0
+
+# Hostname and port the broker listens on
+listeners=PLAINTEXT://localhost:9092
+
+# Directory where Kafka will store log files
+log.dirs=/Users/maaikevanputten/kafka/data
+
+# Number of log partitions per topic
+num.partitions=1
+
+# Number of replicas per partition
+default.replication.factor=1
+
+# Zookeeper connection
+zookeeper.connect=localhost:2181
+
+# Default replication factor for internal topics
+offsets.topic.replication.factor=1
+transaction.state.log.replication.factor=1
+log.retention.hours=168
+
+
+```
+
+zookeeper-server-start zookeeper.properties
+
+new terminal (make sure to be in kafka folder): # Start Kafka broker
+kafka-server-start server.properties
+
+new terminal: 
+kafka-topics --create --topic test-topic --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1
+
+kafka-console-producer --topic test-topic --bootstrap-server localhost:9092
+
+new terminal: 
+kafka-console-consumer --topic test-topic --bootstrap-server localhost:9092 --from-beginning
+
+type messages in the producer window and type enter, they should be visible in the consumer window
+
+
+
+
